@@ -1,0 +1,16 @@
+---
+import Card from "./Card/index.astro";
+---
+
+<Card colSpan="lg:col-span-2" rowSpan="md:row-span-2" height="h-[280px] md:h-full">
+  <div class="w-full h-full absolute inset-0 rounded-lg overflow-hidden">
+    <iframe
+      class="w-full h-full border-0"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14628.5!2d-46.47!3d-23.50!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce65e44f7c2b1d%3A0x2e3e9e5c5f8a7d0!2sMogi+das+Cruzes+-+SP!5e0!3m2!1spt-BR!2sbr!4v1"
+      style="filter: invert(90%) hue-rotate(180deg);"
+      title="Localização"
+    ></iframe>
+  </div>
+</Card>
