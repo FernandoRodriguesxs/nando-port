@@ -1,6 +1,5 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
-import netlify from "@astrojs/netlify";
 import robotsTxt from "astro-robots-txt";
 import UnoCSS from "@unocss/astro";
 import icon from "astro-icon";
@@ -10,7 +9,7 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://fernandorodrigues.dev/",
+  site: "https://nando-port.vercel.app/",
   i18n: {
     defaultLocale: "pt",
     locales: ["pt", "en", "es"],
@@ -22,8 +21,8 @@ export default defineConfig({
     sitemap(),
     robotsTxt({
       sitemap: [
-        "https://fernandorodrigues.dev/sitemap-index.xml",
-        "https://fernandorodrigues.dev/sitemap-0.xml",
+        "https://nando-port.vercel.app/sitemap-index.xml",
+        "https://nando-port.vercel.app/sitemap-0.xml",
       ],
     }),
     solidJs(),
@@ -31,6 +30,5 @@ export default defineConfig({
     icon(),
     svelte(),
   ],
-  output: "server",
-  adapter: netlify({ edgeMiddleware: true }),
+  output: "static",
 });
