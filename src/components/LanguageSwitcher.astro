@@ -1,0 +1,63 @@
+---
+import { type Lang, getLocalizedPath } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const flags: Record<string, { label: string }> = {
+  pt: { label: "Português" },
+  en: { label: "English" },
+  es: { label: "Español" },
+};
+---
+
+<div class="flex gap-3 items-center">
+  {Object.entries(flags).map(([code, { label }]) => (
+    <a
+      href={getLocalizedPath(code as Lang)}
+      class={`flag-link transition-all hover:scale-125 ${
+        code === lang
+          ? "scale-110"
+          : "opacity-50 hover:opacity-100"
+      }`}
+      title={label}
+    >
+      {code === "pt" && (
+        <svg width="24" height="18" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="640" height="480" fill="#229E45"/>
+          <polygon points="320,39 609,240 320,441 31,240" fill="#F8E509"/>
+          <circle cx="320" cy="240" r="95" fill="#2B49A3"/>
+          <path d="M200,240 Q320,170 440,240" stroke="white" stroke-width="12" fill="none"/>
+        </svg>
+      )}
+      {code === "en" && (
+        <svg width="24" height="18" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="640" height="480" fill="#BD3D44"/>
+          <rect y="37" width="640" height="37" fill="white"/>
+          <rect y="111" width="640" height="37" fill="white"/>
+          <rect y="185" width="640" height="37" fill="white"/>
+          <rect y="259" width="640" height="37" fill="white"/>
+          <rect y="333" width="640" height="37" fill="white"/>
+          <rect y="407" width="640" height="37" fill="white"/>
+          <rect width="260" height="259" fill="#192F5D"/>
+        </svg>
+      )}
+      {code === "es" && (
+        <svg width="24" height="18" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="640" height="480" fill="#AA151B"/>
+          <rect y="120" width="640" height="240" fill="#F1BF00"/>
+        </svg>
+      )}
+    </a>
+  ))}
+</div>
+
+<style>
+  .flag-link svg {
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+</style>
