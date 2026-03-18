@@ -3,20 +3,22 @@ import Card from "./Card/index.astro";
 import Button from "./Button.astro";
 import { LINKS } from "../lib/constants";
 import { Icon } from "astro-icon/components";
-import Tooltip from "./Tooltip/index";
 import { Image } from "astro:assets";
+import { t, type Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
 ---
 
 <Card colSpan="md:col-span-3" rowSpan="md:row-span-4">
-  <div class="flex w-full h-full">
-    <div class="flex flex-col justify-between md:max-h-[300px] gap-4">
+  <div class="flex flex-col sm:flex-row w-full h-full">
+    <div class="flex flex-col justify-between gap-4">
       <div class="flex flex-col h-full">
-        <h6 class="text-sm font-light m-0 text-gray-500">welcome</h6>
-        <p class="m-0 font-light text-xl">
-          Hi, I'm <b class="font-bold">Gianmarco Cavallo</b>, a software
-          developer with strong focus on the user experience, animations and
-          micro interactions
-        </p>
+        <h6 class="text-sm font-light m-0 text-gray-500">{t(lang, "intro.greeting")}</h6>
+        <p class="m-0 font-light text-xl" set:html={t(lang, "intro.text")} />
       </div>
       <div class="flex gap-4 flex-wrap">
         <a aria-label="github profile" href={LINKS.github} target="_blank">
@@ -31,34 +33,44 @@ import { Image } from "astro:assets";
             <span class="sr-only">Linkedin Profile</span>
           </Button>
         </a>
-        <a aria-label="dribble profile" href={LINKS.dribble} target="_blank">
-          <Button aria-label="dribble profile">
-            <Icon class="h-6" name="ri:dribbble-fill" />
-            <span class="sr-only">Dribble Profile</span>
+        <a aria-label="strava profile" href={LINKS.strava} target="_blank">
+          <Button aria-label="strava profile">
+            <Icon class="h-6" name="ri:run-line" />
+            <span class="sr-only">Strava Profile</span>
           </Button>
         </a>
-        <Tooltip client:visible>
-          <Button aria-label="easter egg btn">
-            <Icon class="h-6" name="ri:emotion-laugh-line" />
-            <span class="sr-only">Easter egg button</span>
+        <a aria-label="email" href={`mailto:${LINKS.email}`}>
+          <Button aria-label="email">
+            <Icon class="h-6" name="ri:mail-line" />
+            <span class="sr-only">Email</span>
           </Button>
-        </Tooltip>
-        <a href="https://ko-fi.com/M4M71O34X" target="_blank"
-          ><img
-            height="36"
-            style="border:0px;height:36px;"
-            src="https://storage.ko-fi.com/cdn/kofi6.png?v=6"
-            alt="Buy Me a Coffee at ko-fi.com"
-          /></a
-        >
+        </a>
       </div>
     </div>
     <Image
-      alt="memoji of gianmarco"
-      class="w-auto max-h-[300px] select-none absolute right-[-110px] bottom-[-20px] z-[-1] opacity-50 md:opacity-100 md:relative md:right-auto md:bottom-auto md:z-auto pointer-events-none"
+      alt="foto de Fernando Rodrigues"
+      class="levitate w-auto max-h-[200px] sm:max-h-[300px] select-none mx-auto mt-4 sm:mt-0 sm:absolute sm:right-0 sm:bottom-0 md:relative md:right-auto md:bottom-auto pointer-events-none"
       height="300"
       src="/me.webp"
       width="300"
     />
   </div>
 </Card>
+
+<style>
+  @keyframes levitate {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  .levitate {
+    animation: levitate 3s ease-in-out infinite;
+  }
+</style>

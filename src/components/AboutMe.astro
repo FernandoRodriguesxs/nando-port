@@ -1,33 +1,79 @@
 ---
 import Card from "./Card/index.astro";
+import { t, type Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
 ---
 
-<Card colSpan="md:col-span-1" rowSpan="md:row-span-6" title="About me">
-  <div class="flex flex-col gap-2">
-    <div class="text-sm font-light">
-      <p>
-        Hi, I'm Gianmarco, a front-end software developer from Italy.
-        <br />
-        My primary tools of choice includes:
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-6" title={t(lang, "about.title")}>
+  <div class="about-scroll flex flex-col gap-3 overflow-y-auto h-full pr-2 pb-4">
+    <p class="text-base font-light">
+      {t(lang, "about.p1")}
+    </p>
+    <p class="text-base font-light">
+      {t(lang, "about.p2")}
+    </p>
+    <p class="text-base font-light">
+      {t(lang, "about.p3")}
+    </p>
+    <div class="text-base font-light">
+      <p class="font-bold mb-1">{t(lang, "about.stack")}</p>
+      <p class="text-xs text-gray-400">
+        TypeScript, React, Next.js, Node.js, NestJS, Python, LangChain,
+        OpenAI API, PostgreSQL, MongoDB, AWS, Docker
       </p>
-      <ul class="list-disc list-inside">
-        <li>JavaScript</li>
-        <li>React</li>
-        <li>Solidjs</li>
-        <li>Astro</li>
-        <li>svelte</li>
-        <li>Nodejs</li>
-      </ul>
     </div>
-    <p class="text-sm font-light">
-      Beyond coding, I'm passionate about design, illustration, animation and 3D modelling and traveling.
-      An unusual hobby of mine is collecting vintage passports, they're
-      interesting pieces of history to me.
-    </p>
-    <p class="text-sm font-light">
-      While I have some preferred tools, I always choose the best one for the
-      job, even if it's not on my usual list. My goal is to find the right
-      solution for each project.
-    </p>
   </div>
 </Card>
+
+<style>
+  .about-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s ease;
+    mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
+  }
+
+  .about-scroll:hover {
+    scrollbar-color: #E63946 transparent;
+  }
+
+  /* Webkit (Chrome, Edge, Safari) */
+  .about-scroll::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .about-scroll::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+
+  .about-scroll::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+  }
+
+  .about-scroll:hover::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #E63946, #EC7981, #E63946);
+    background-size: 100% 200%;
+    animation: scrollGlow 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollGlow {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 0% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+</style>

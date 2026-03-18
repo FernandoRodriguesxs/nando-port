@@ -4,76 +4,41 @@ import { LINKS } from "../lib/constants";
 interface Props {
   title: string;
   description: string;
-  page?: "travel" | "blog";
-  slug?: string | undefined;
-  pubDate?: string;
 }
 
-const { title, description, page, pubDate } = Astro.props;
-const image =
-  page === "travel"
-    ? `${Astro.url.origin}/globe_preview.webp"`
-    : `${Astro.url.origin}/og-image.png`;
+const { title, description } = Astro.props;
+const image = `${Astro.url.origin}/me.webp`;
 
-const schema =
-  page !== "blog"
-    ? {
-        "@context": "http://schema.org",
-        "@type": "Person",
-        name: "Gianmarco",
-        url: Astro.url.origin,
-        sameAs: [LINKS.linkedin, LINKS.github],
-        image: `${Astro.url.origin}/og-image.png`,
-        jobTitle: "Freelance Frontend Developer",
-        worksFor: {
-          "@type": "Organization",
-          name: "Self-Employed",
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Italy",
-            addressCountry: "IT",
-          },
-        },
-        nationality: {
-          "@type": "Country",
-          name: "Italy",
-        },
-      }
-    : {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        mainEntityOfPage: {
-          "@type": "WebPage",
-          "@id": Astro.url.href,
-        },
-        headline: title || title,
-        description: description || title,
-        image: `${Astro.url.origin}/og-image.png`, //TODO: dynamic
-        author: {
-          "@type": "Person",
-          name: "Gianmarco",
-          url: Astro.url.origin,
-          sameAs: [LINKS.linkedin, LINKS.github],
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "Gianmarco",
-          logo: {
-            "@type": "ImageObject",
-            url: `${Astro.url.origin}/og-image.png`,
-          },
-        },
-        datePublished: pubDate || new Date().toISOString(),
-        dateModified: pubDate || new Date().toISOString(),
-      };
+const schema = {
+  "@context": "http://schema.org",
+  "@type": "Person",
+  name: "Fernando Rodrigues",
+  url: Astro.url.origin,
+  sameAs: [LINKS.linkedin, LINKS.github],
+  image: `${Astro.url.origin}/me.webp`,
+  jobTitle: "Software Engineer",
+  worksFor: {
+    "@type": "Organization",
+    name: "Adalink",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "São Paulo",
+      addressCountry: "BR",
+    },
+  },
+  nationality: {
+    "@type": "Country",
+    name: "Brazil",
+  },
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={Astro.currentLocale || "pt"}>
   <head>
     <meta charset="UTF-8" />
     <meta content="width=device-width" name="viewport" />
-    <link href="/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/favicon.png" rel="icon" type="image/png" />
     <meta content={Astro.generator} name="generator" />
     <title>{title}</title>
     <meta content={description} name="description" />
@@ -105,7 +70,7 @@ const schema =
     />
   </head>
   <body
-    class="bg-darkslate-700 md:h-screen flex flex-col justify-center items-center"
+    class="bg-darkslate-700 min-h-screen flex flex-col justify-start md:justify-center items-center"
   >
     <slot name="loader" />
     <slot />

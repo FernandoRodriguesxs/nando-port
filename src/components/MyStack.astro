@@ -1,15 +1,24 @@
 ---
 import Card from "./Card/index.astro";
+import { t, type Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
 ---
 
-<Card colSpan="md:col-span-2" rowSpan="md:row-span-1" title="My Stack">
+<Card colSpan="md:col-span-2" rowSpan="md:row-span-1" title={t(lang, "stack.title")}>
   <p class="text-sm font-light">
-    Here's a snapshot of the primary tools and technologies I work with:
+    {t(lang, "stack.description")}
   </p>
   <ul class="text-sm font-light pl-5 list-disc">
-    <li ><strong>Solidjs</strong></li>
-    <li><strong>JavaScript</strong></li>
-    <li><strong>Node.js</strong></li>
-    <li><strong>React.js</strong></li>
+    <li><strong>TypeScript</strong> / <strong>Python</strong></li>
+    <li><strong>React</strong> / <strong>Next.js</strong></li>
+    <li><strong>Node.js</strong> / <strong>NestJS</strong></li>
+    <li><strong>LangChain</strong> / <strong>OpenAI</strong> / <strong>Anthropic</strong></li>
+    <li><strong>PostgreSQL</strong> / <strong>MongoDB</strong></li>
+    <li><strong>AWS</strong> / <strong>Docker</strong></li>
   </ul>
 </Card>
